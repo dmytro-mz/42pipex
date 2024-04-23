@@ -1,9 +1,11 @@
 #include "pipex.h"
+#include "ft_printf.h"
 
-void clean_n_exit_with_error(char *err, t_pipex_state *state, int i)
+void clean_n_exit(t_pipex_state *state, int i, void(*error_func)(char *), char *err_msg)
 {
+    ft_printf("  PROCESS %d: clean_n_exit: %s\n", i, err_msg);
     clean_state(state, i);
-    exit_with_error(err);
+    (*error_func)(err_msg);
 }
 
 void clean_state(t_pipex_state *state, int i)
@@ -14,14 +16,21 @@ void clean_state(t_pipex_state *state, int i)
     {
         j = 0;
         while (j < (i + 1) * 2)
-            close(state->pipes[j]);
+            close(state->pipes[j++]);
     }
     free(state->pipes);
+    state->pipes = NULL;
 }
 
-void exit_with_error(char *err)
+void exit_with_error(char *err_msg)
 {
-    ft_putendl_fd(err, STDERR_FILENO);
+    ft_putendl_fd(err_msg, STDERR_FILENO);
+    exit(1);
+}
+
+void exit_with_perror(char *err_suf)
+{
+    perror(err_suf);
     exit(1);
 }
 
@@ -31,6 +40,6 @@ void free_split(char **str_arr)
 
     i = 0;
     while (str_arr[i])
-        free(str_arr[i]);
+        free(str_arr[i++]);
     free(str_arr);
 }

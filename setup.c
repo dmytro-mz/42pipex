@@ -19,13 +19,11 @@ void setup(int ac, char **av, t_pipex_state *state)
     state->out_path = av[ac - 1];
     state->pipes = malloc((state->n_cmd - 1) * 2 * sizeof(int));
     if (!state->pipes)
-        clean_n_exit_with_error(strerror(errno), state, -1);
+        clean_n_exit(state, -1, &exit_with_perror, "malloc");
 }
 
 char *get_in_fd(char **av, int is_here_doc)
 {
-    int rd;
-
     if (is_here_doc)
         return (get_in_fd_here_doc(av));
     else
@@ -39,9 +37,9 @@ char *get_in_fd_here_doc(char **av)
     char *line;
 
     lim_len = ft_strlen(av[1]);
-    wr = open("__tmptodrop", O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
+    wr = open("__tmp_file", O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
     if (wr == -1)
-        exit_with_error("Failed to create tmp file.");
+        exit_with_perror("__tmp_file");
     line = get_next_line(STDIN_FILENO);
     while (line && !(ft_memcmp(line, av[1], lim_len) && line[lim_len] == '\n'))
     {
@@ -51,5 +49,5 @@ char *get_in_fd_here_doc(char **av)
     }
     free(line);
     close(wr);
-    return ("__tmptodrop");
+    return ("__tmp_file");
 }

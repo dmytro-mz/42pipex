@@ -31,7 +31,7 @@ $(NAME): $(LIBFT) $(OBJS)
 	$(CC) $(CFLAGS) $(INC_FLAGS) $(OBJS) $(LIB_FLAGS) -o $(NAME)
 
 debug: $(LIBFT)
-	$(CC) $(CFLAGS) $(C_DEBUG_FLAG) $(INC_FLAGS) $(SRCS) $(LIB_FLAGS) -o $(NAME)
+	$(CC) $(C_DEBUG_FLAG) $(INC_FLAGS) $(SRCS) $(LIB_FLAGS) -o $(NAME)
 
 clean:
 	$(MAKE) clean -C $(LIBFT_DIR)
