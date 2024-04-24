@@ -10,7 +10,6 @@
 # include <errno.h>
 # include <stdio.h>
 
-# define S_777 S_IRWXU | S_IRWXG | S_IRWXO
 # define OUTFD_FLAGS(f) O_WRONLY | O_CREAT | (O_APPEND * (f)) | (O_TRUNC * (!(f)))
 
 typedef struct  s_pipex_state
@@ -25,6 +24,7 @@ typedef struct  s_pipex_state
 void setup(int ac, char **av, t_pipex_state *state);
 void run_cmd(t_pipex_state *state, char *cmd, int i, char **envp);
 void find_executable(char **av, char **envp);
+// utils
 void clean_n_exit(t_pipex_state *state, int i, void(*error_func)(char *), char *err_msg);
 void clean_state(t_pipex_state *state, int i);
 void exit_with_error(char *err_msg);

@@ -1,5 +1,4 @@
 #include "pipex.h"
-#include <stdio.h>
 
 char *get_in_fd(char **av, int is_here_doc);
 char *get_in_fd_here_doc(char *lim);
@@ -38,18 +37,15 @@ char *get_in_fd_here_doc(char *lim)
     char *line;
 
     lim_len = ft_strlen(lim);
-    // printf("lim_len: %ld\n", lim_len);
     wr = open("__tmp_file", O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
     if (wr == -1)
         exit_with_perror("__tmp_file");
     line = get_next_line(STDIN_FILENO);
-    // printf("first line: %s", line);
     while (line && !(!ft_memcmp(line, lim, lim_len) && line[lim_len] == '\n'))
     {
         ft_putstr_fd(line, wr);
         free(line); 
         line = get_next_line(STDIN_FILENO);
-        // printf("next line: %s", line);
     }
     free(line);
     close(wr);

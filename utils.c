@@ -1,9 +1,7 @@
 #include "pipex.h"
-#include <stdio.h>
 
 void clean_n_exit(t_pipex_state *state, int i, void(*error_func)(char *), char *err_msg)
 {
-    // printf("  PROCESS %d: clean_n_exit: %s\n", i, err_msg);
     clean_state(state, i);
     (*error_func)(err_msg);
 }

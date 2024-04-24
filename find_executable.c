@@ -1,5 +1,4 @@
 #include "pipex.h"
-#include <stdio.h>
 
 char **get_path(char **envp);
 char *find_location(char **path, char *exec_name);
@@ -12,17 +11,12 @@ void find_executable(char **av, char **envp)
     char *location;
     char *new_exec;
 
-    // printf("In find_executable\n");
-    // printf("av[0]: %s\n", av[0]);
     if (av[0][0] == '/')
         return ;
-    // printf(":)\n", av[0]);
     path = get_path(envp);
-    // printf("path: %p\n", path);
     if (!path)
         return ;
     location = find_location(path, av[0]);
-    // printf("location: %s\n", location);
     if (location)
     {
         new_exec = ft_pathjoin(location, av[0]);
@@ -32,9 +26,7 @@ void find_executable(char **av, char **envp)
             av[0] = new_exec;
         }
     }
-    // printf("av[0]: %s\n", av[0]);
     free_split(path);
-    // printf("OUT find_executable\n");
 }
 
 char **get_path(char **envp)
@@ -43,11 +35,9 @@ char **get_path(char **envp)
     char **path;
 
     path = NULL;
-    // printf("Searching PATH\n");
     i = 0;
     while (envp[i])
     {
-        // printf("Maybe: %s\n", envp[i]);
         if (ft_memcmp(envp[i], "PATH=", 5) == 0)
         {
             path = ft_split(envp[i] + 5, ':');
@@ -65,7 +55,6 @@ char *find_location(char **path, char *exec_name)
     i = 0;
     while (path[i])
     {
-        // printf("Checking: %s/%s\n", path[i], exec_name);
         if (is_executable(path[i], exec_name))
             return (path[i]);
         i++;
@@ -84,7 +73,6 @@ int is_executable(char *exec_path, char *exec_name)
     ret_val = 0;
     if (access(full_path, X_OK) == 0)
         ret_val = 1;
-    // printf("Result of %s: %d\n", full_path, ret_val);
     free(full_path);
     return (ret_val);
 }
