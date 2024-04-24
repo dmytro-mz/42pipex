@@ -23,7 +23,8 @@ typedef struct  s_pipex_state
 } t_pipex_state;
 
 void setup(int ac, char **av, t_pipex_state *state);
-void run_cmd(t_pipex_state *state, char *cmd, int i);
+void run_cmd(t_pipex_state *state, char *cmd, int i, char **envp);
+void find_executable(char **av, char **envp);
 void clean_n_exit(t_pipex_state *state, int i, void(*error_func)(char *), char *err_msg);
 void clean_state(t_pipex_state *state, int i);
 void exit_with_error(char *err_msg);

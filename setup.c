@@ -1,7 +1,8 @@
 #include "pipex.h"
+#include <stdio.h>
 
 char *get_in_fd(char **av, int is_here_doc);
-char *get_in_fd_here_doc(char **av);
+char *get_in_fd_here_doc(char *lim);
 
 void setup(int ac, char **av, t_pipex_state *state)
 {
@@ -25,27 +26,30 @@ void setup(int ac, char **av, t_pipex_state *state)
 char *get_in_fd(char **av, int is_here_doc)
 {
     if (is_here_doc)
-        return (get_in_fd_here_doc(av));
+        return (get_in_fd_here_doc(av[2]));
     else
         return (av[1]);
 }
 
-char *get_in_fd_here_doc(char **av)
+char *get_in_fd_here_doc(char *lim)
 {
     int wr;
-    int lim_len;
+    size_t lim_len;
     char *line;
 
-    lim_len = ft_strlen(av[1]);
+    lim_len = ft_strlen(lim);
+    // printf("lim_len: %ld\n", lim_len);
     wr = open("__tmp_file", O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
     if (wr == -1)
         exit_with_perror("__tmp_file");
     line = get_next_line(STDIN_FILENO);
-    while (line && !(ft_memcmp(line, av[1], lim_len) && line[lim_len] == '\n'))
+    // printf("first line: %s", line);
+    while (line && !(!ft_memcmp(line, lim, lim_len) && line[lim_len] == '\n'))
     {
         ft_putstr_fd(line, wr);
         free(line); 
-        line = get_next_line(wr);
+        line = get_next_line(STDIN_FILENO);
+        // printf("next line: %s", line);
     }
     free(line);
     close(wr);

@@ -11,6 +11,7 @@ NAME = pipex
 SRCS = $(NAME).c \
 	   setup.c \
 	   run_cmd.c \
+	   find_executable.c \
 	   utils.c
 OBJS = $(SRCS:.c=.o)
 INCS = $(NAME).h \
