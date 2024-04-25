@@ -6,11 +6,11 @@ LIBPRINTF_DIR = ./ftprintf
 
 NAME = libdmoroz.a
 GNL_DIR = ./ftgnl
-SRCS_GNL = get_next_line_bonus.c get_next_line_utils_bonus.c
+SRCS_GNL = get_next_line.c get_next_line_utils.c
 SRCS = $(addprefix $(GNL_DIR)/, $(SRCS_GNL))
 OBJS = $(SRCS:.c=.o)
 INCS = $(LIBFT_DIR)/libft.h \
-       $(GNL_DIR)/get_next_line_bonus.h
+       $(GNL_DIR)/get_next_line.h
 INCS_DIR = $(dir $(INCS))
 INC_FLAGS = $(addprefix -I, $(INCS_DIR))
 

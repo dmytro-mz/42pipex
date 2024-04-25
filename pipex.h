@@ -13,7 +13,7 @@
 #ifndef PIPEX_H
 # define PIPEX_H
 
-# include "get_next_line_bonus.h"
+# include "get_next_line.h"
 # include "libft.h"
 # include <errno.h>
 # include <fcntl.h>

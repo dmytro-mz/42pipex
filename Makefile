@@ -29,7 +29,7 @@ OBJS = $(SRCS:.c=.o)
 INCS = $(NAME).h \
        $(LIBFT_DIR)/libft/libft.h \
        $(LIBFT_DIR)/ftprintf/ft_printf.h \
-       $(LIBFT_DIR)/ftgnl/get_next_line_bonus.h
+       $(LIBFT_DIR)/ftgnl/get_next_line.h
 INCS_DIR = $(dir $(INCS))
 INC_FLAGS = $(addprefix -I, $(INCS_DIR))
 
