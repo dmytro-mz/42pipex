@@ -23,7 +23,10 @@ void	run_cmd(t_pipex_state *state, char *cmd, int i, char **envp)
 	set_stdout(state, i);
 	av = ft_split(cmd, ' ');
 	if (!*av)
+	{
+		free_split(av);
 		clean_n_exit(state, i, &exit_with_error, "permission denied: ");
+	}
 	find_executable(av, envp);
 	clean_state(state, i);
 	execve(av[0], av, envp);
